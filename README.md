@@ -15,4 +15,4 @@
 
 
 
-![](photo/1.gif)
+![](./photo/1.gif)
