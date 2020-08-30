@@ -1,10 +1,6 @@
 ## 
 
-
     mavenLocal()
-    
-    
-    
     
 ## 
 
@@ -18,3 +14,5 @@
     implementation 'com.ms:module-loading-page:latest'
 
 
+
+![](photo/1.gif)
