@@ -1,10 +1,19 @@
 package com.ms.view.loading.page;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.drawable.ClipDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 public class PagesStatusImpl implements IInterPageStatus {
 
@@ -17,6 +26,16 @@ public class PagesStatusImpl implements IInterPageStatus {
     // 无网络
     private RelativeLayout statusRelativeLayoutNotNetwork;
 
+
+    private ProgressBar progressBarLoading;
+
+    private Drawable drawableProgressBarLoading;
+
+    private Drawable wrappedDrawable;
+
+    private int drawableProgressBarLoadingId = R.drawable.com_ms_app_dialog_loading;
+
+    private int progressBarLoadingColor = Color.parseColor("#000000");
 
     @Override
     public void view(Activity context) {
@@ -33,7 +52,21 @@ public class PagesStatusImpl implements IInterPageStatus {
         statusRelativeLayoutError = (RelativeLayout) context.findViewById(R.id.statusRelativeLayoutError);
         statusRelativeLayoutNotNetwork = (RelativeLayout) context.findViewById(R.id.statusRelativeLayoutNotNetwork);
 
+
+        progressBarLoading = context.findViewById(R.id.progressBarLoading);
+
+        drawableProgressBarLoading = ContextCompat.getDrawable(context, drawableProgressBarLoadingId).mutate();
+        wrappedDrawable = DrawableCompat.wrap(drawableProgressBarLoading);
+        wrappedDrawable.setTint(progressBarLoadingColor);
+        progressBarLoading.setIndeterminateDrawable(drawableProgressBarLoading);
+
         hideAllStatus();
+    }
+
+    @Override
+    public void setLoadingColor(int color) {
+        this.progressBarLoadingColor = color;
+        wrappedDrawable.setTint(progressBarLoadingColor);
     }
 
     @Override
@@ -57,9 +90,7 @@ public class PagesStatusImpl implements IInterPageStatus {
     @Override
     public void showLoading() {
         hideAllStatus();
-        Log.e(TAG, "showLoading: 0");
         if (statusRelativeLayoutLoading != null) {
-            Log.e(TAG, "showLoading: 1");
             statusRelativeLayoutLoading.setVisibility(View.VISIBLE);
         }
     }

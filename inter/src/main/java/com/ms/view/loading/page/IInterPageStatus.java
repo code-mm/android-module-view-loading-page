@@ -7,4 +7,6 @@ public interface IInterPageStatus extends IPageStatus{
 
     void view(Activity activity);
 
+    void setLoadingColor(int color);
+
 }

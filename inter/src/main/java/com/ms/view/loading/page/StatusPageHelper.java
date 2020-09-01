@@ -3,8 +3,7 @@ package com.ms.view.loading.page;
 import android.app.Activity;
 import android.util.Log;
 
-public class StatusPageHelper  implements  IPageStatus {
-
+public class StatusPageHelper implements IPageStatus, IInterPageStatus {
 
     private static final String TAG = "StatusPageHelper";
 
@@ -16,7 +15,9 @@ public class StatusPageHelper  implements  IPageStatus {
 
     IInterPageStatus statusPage;
 
-    public void init(Activity activity) {
+
+    @Override
+    public void view(Activity activity) {
         try {
             Class<?> aClass = Class.forName("com.ms.view.loading.page.PagesStatusImpl");
             Object o = aClass.newInstance();
@@ -29,43 +30,44 @@ public class StatusPageHelper  implements  IPageStatus {
         }
     }
 
-
+    @Override
+    public void setLoadingColor(int color) {
+        if (statusPage != null) {
+            statusPage.setLoadingColor(color);
+        }
+    }
 
 
     public void hideAllStatus() {
-        if(statusPage!=null)
-        {
+        if (statusPage != null) {
             statusPage.hideAllStatus();
         }
     }
 
 
     public void showLoading() {
-        Log.e(TAG, "showLoading: " );
-        if(statusPage!=null)
-        {
-            Log.e(TAG, "showLoading: 1" );
+        Log.e(TAG, "showLoading: ");
+        if (statusPage != null) {
+            Log.e(TAG, "showLoading: 1");
             statusPage.showLoading();
         }
     }
 
 
     public void showNotNetwork() {
-        if(statusPage!=null)
-        {
+        if (statusPage != null) {
             statusPage.showNotNetwork();
         }
     }
 
     public void showEmpty() {
-        if(statusPage!=null)
-        {
+        if (statusPage != null) {
             statusPage.showEmpty();
         }
     }
+
     public void showError() {
-        if(statusPage!=null)
-        {
+        if (statusPage != null) {
             statusPage.showError();
         }
     }

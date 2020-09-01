@@ -2,6 +2,7 @@ package com.ms.view.loading.page;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -13,7 +14,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        StatusPageHelper.getInstance().init(this);
+        StatusPageHelper.getInstance().view(this);
+        StatusPageHelper.getInstance().setLoadingColor(Color.parseColor("#F58533"));
     }
 
     public void hideAll(View view) {
@@ -21,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showLoading(View view) {
-        Toast.makeText(this, "showLoading", Toast.LENGTH_SHORT).show();
         StatusPageHelper.getInstance().showLoading();
     }
 
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public void showError(View view) {
         StatusPageHelper.getInstance().showError();
     }
+
     public void showEmpty(View view) {
         StatusPageHelper.getInstance().showEmpty();
     }
