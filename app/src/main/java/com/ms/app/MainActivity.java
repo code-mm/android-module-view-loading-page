@@ -1,40 +1,48 @@
-package com.ms.view.loading.page;
+package com.ms.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+
+import com.ms.view.loading.page.StatusPageHelper;
 
 
 public class MainActivity extends AppCompatActivity {
+
+
+    private StatusPageHelper statusPageHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        StatusPageHelper.getInstance().view(this);
-        StatusPageHelper.getInstance().setLoadingColor(Color.parseColor("#F58533"));
+        statusPageHelper = new StatusPageHelper();
+        statusPageHelper.init(this);
+        statusPageHelper.setLoadingColor(Color.parseColor("#F58533"));
+
+
     }
 
     public void hideAll(View view) {
-        StatusPageHelper.getInstance().hideAllStatus();
+        statusPageHelper.hideAllStatus();
     }
 
     public void showLoading(View view) {
-        StatusPageHelper.getInstance().showLoading();
+        statusPageHelper.showLoading();
     }
 
     public void showNotNetwork(View view) {
-        StatusPageHelper.getInstance().showNotNetwork();
+        statusPageHelper.showNotNetwork();
     }
 
     public void showError(View view) {
-        StatusPageHelper.getInstance().showError();
+        statusPageHelper.showError();
     }
 
     public void showEmpty(View view) {
-        StatusPageHelper.getInstance().showEmpty();
+        statusPageHelper.showEmpty();
     }
 }

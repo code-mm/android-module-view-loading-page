@@ -4,7 +4,7 @@
     android:id="@+id/statusRelativeLayoutLoading"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="visible">
+    android:visibility="gone">
 
 
     <!--        android:indeterminateTint="#FCB852"-->
@@ -15,9 +15,6 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:indeterminateTint="#FCB852"
-        android:indeterminateTintMode="src_atop"
-        android:indeterminateDrawable="@drawable/com_ms_app_dialog_loading"
-
-        />
+        android:indeterminateTintMode="src_atop" />
 
 </RelativeLayout>

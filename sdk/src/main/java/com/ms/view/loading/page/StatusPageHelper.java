@@ -2,28 +2,36 @@ package com.ms.view.loading.page;
 
 import android.app.Activity;
 import android.util.Log;
+import android.view.ViewGroup;
 
 public class StatusPageHelper implements IPageStatus, IInterPageStatus {
 
     private static final String TAG = "StatusPageHelper";
 
-    private static final StatusPageHelper instance = new StatusPageHelper();
-
-    public static StatusPageHelper getInstance() {
-        return instance;
-    }
-
     IInterPageStatus statusPage;
 
-
     @Override
-    public void view(Activity activity) {
+    public void init(ViewGroup viewGroup) {
         try {
             Class<?> aClass = Class.forName("com.ms.view.loading.page.PagesStatusImpl");
             Object o = aClass.newInstance();
             if (o instanceof IInterPageStatus) {
                 statusPage = (IInterPageStatus) o;
-                statusPage.view(activity);
+                statusPage.init(viewGroup);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void init(Activity activity) {
+        try {
+            Class<?> aClass = Class.forName("com.ms.view.loading.page.PagesStatusImpl");
+            Object o = aClass.newInstance();
+            if (o instanceof IInterPageStatus) {
+                statusPage = (IInterPageStatus) o;
+                statusPage.init(activity);
             }
         } catch (Exception e) {
             e.printStackTrace();

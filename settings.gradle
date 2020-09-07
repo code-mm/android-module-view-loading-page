@@ -1,4 +1,4 @@
-include ':inter'
+
 include ':sdk'
 include ':app'
 rootProject.name = "android-loading-page"

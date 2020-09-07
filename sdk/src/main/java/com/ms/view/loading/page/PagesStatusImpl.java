@@ -1,6 +1,7 @@
 package com.ms.view.loading.page;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -16,6 +17,9 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 public class PagesStatusImpl implements IInterPageStatus {
+
+
+    private static final String TAG = "PagesStatusImpl";
 
     // 加载中
     private RelativeLayout statusRelativeLayoutLoading;
@@ -37,7 +41,7 @@ public class PagesStatusImpl implements IInterPageStatus {
 
     private int progressBarLoadingColor = Color.parseColor("#000000");
 
-    @Override
+
     public void view(Activity context) {
         if (context == null) {
             throw new NullPointerException("context null");
@@ -47,10 +51,10 @@ public class PagesStatusImpl implements IInterPageStatus {
 
         context.addContentView(view, layoutParams);
 
-        statusRelativeLayoutLoading = (RelativeLayout) context.findViewById(R.id.statusRelativeLayoutLoading);
-        statusRelativeLayoutEmpty = (RelativeLayout) context.findViewById(R.id.statusRelativeLayoutEmpty);
-        statusRelativeLayoutError = (RelativeLayout) context.findViewById(R.id.statusRelativeLayoutError);
-        statusRelativeLayoutNotNetwork = (RelativeLayout) context.findViewById(R.id.statusRelativeLayoutNotNetwork);
+        statusRelativeLayoutLoading = view.findViewById(R.id.statusRelativeLayoutLoading);
+        statusRelativeLayoutEmpty = view.findViewById(R.id.statusRelativeLayoutEmpty);
+        statusRelativeLayoutError = view.findViewById(R.id.statusRelativeLayoutError);
+        statusRelativeLayoutNotNetwork = view.findViewById(R.id.statusRelativeLayoutNotNetwork);
 
 
         progressBarLoading = context.findViewById(R.id.progressBarLoading);
@@ -61,6 +65,39 @@ public class PagesStatusImpl implements IInterPageStatus {
         progressBarLoading.setIndeterminateDrawable(drawableProgressBarLoading);
 
         hideAllStatus();
+    }
+
+    @Override
+    public void init(ViewGroup viewGroup) {
+
+        if (viewGroup == null) {
+            throw new NullPointerException("viewGroup null");
+        }
+        Context context = viewGroup.getContext();
+
+        View view = View.inflate(context, R.layout.com_ms_status_all_layout, null);
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        viewGroup.addView(view, layoutParams);
+
+        statusRelativeLayoutLoading = view.findViewById(R.id.statusRelativeLayoutLoading);
+        statusRelativeLayoutEmpty = view.findViewById(R.id.statusRelativeLayoutEmpty);
+        statusRelativeLayoutError = view.findViewById(R.id.statusRelativeLayoutError);
+        statusRelativeLayoutNotNetwork = view.findViewById(R.id.statusRelativeLayoutNotNetwork);
+
+
+        progressBarLoading = view.findViewById(R.id.progressBarLoading);
+
+        drawableProgressBarLoading = ContextCompat.getDrawable(context, drawableProgressBarLoadingId).mutate();
+        wrappedDrawable = DrawableCompat.wrap(drawableProgressBarLoading);
+        wrappedDrawable.setTint(progressBarLoadingColor);
+        progressBarLoading.setIndeterminateDrawable(drawableProgressBarLoading);
+
+    }
+
+    @Override
+    public void init(Activity activity) {
+
+        view(activity);
     }
 
     @Override
@@ -85,7 +122,6 @@ public class PagesStatusImpl implements IInterPageStatus {
         }
     }
 
-    private static final String TAG = "StatusPages";
 
     @Override
     public void showLoading() {
